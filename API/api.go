@@ -2,14 +2,12 @@ package API
 
 import (
 	"encoding/json"
+	"io/ioutil"
 	"log"
 	"net/http"
-
 )
 
-
-
-
+// Artist, Location, Dates, Relation, Data structs need to be defined here
 
 func ArtistData() []Artist {
 	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
@@ -17,29 +15,38 @@ func ArtistData() []Artist {
 		log.Fatalf("Error after request: %v", err)
 	}
 	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatalf("Error reading response body: %v", err)
+	}
+
 	var artistInfo []Artist
-	decoder := json.NewDecoder(resp.Body)
-	err = decoder.Decode(&artistInfo)
+	err = json.Unmarshal(body, &artistInfo)
 	if err != nil {
 		log.Fatalf("Error decoding JSON: %v", err)
 	}
 	return artistInfo
 }
+
 func LocationsData() []Location {
 	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/locations")
 	if err != nil {
 		log.Fatalf("Error after request: %v", err)
 	}
 	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatalf("Error reading response body: %v", err)
+	}
+
 	var locationsResp LocationResp
-	decoder := json.NewDecoder(resp.Body)
-	err = decoder.Decode(&locationsResp)
+	err = json.Unmarshal(body, &locationsResp)
 	if err != nil {
 		log.Fatalf("Error decoding JSON: %v", err)
 	}
-	// Extract locations from locationsResp
-	//this loop add all the locations details into a slice of structs
-	//beacuse of json layers we extract the loactions alone
+
 	var locations []Location
 	for _, item := range locationsResp.Index {
 		location := Location{locations: item.Locations}
@@ -47,23 +54,29 @@ func LocationsData() []Location {
 	}
 	return locations
 }
+
 func DatesData() []Dates {
 	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/dates")
 	if err != nil {
 		log.Fatalf("Error after request: %v", err)
 	}
 	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatalf("Error reading response body: %v", err)
+	}
+
 	var datesResponse struct {
 		Index []struct {
 			Dates []string `json:"dates"`
 		} `json:"index"`
 	}
-	decoder := json.NewDecoder(resp.Body)
-	err = decoder.Decode(&datesResponse)
+	err = json.Unmarshal(body, &datesResponse)
 	if err != nil {
 		log.Fatalf("Error decoding JSON: %v", err)
 	}
-	// Extract dates from datesResponse
+
 	var datesInfo []Dates
 	for _, item := range datesResponse.Index {
 		dates := Dates{Dates: item.Dates}
@@ -71,24 +84,29 @@ func DatesData() []Dates {
 	}
 	return datesInfo
 }
+
 func RelationData() []Relation {
 	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/relation")
 	if err != nil {
 		log.Fatalf("Error after request: %v", err)
 	}
 	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatalf("Error reading response body: %v", err)
+	}
+
 	var relationResponse struct {
 		Index []struct {
 			DatesLocations map[string][]string `json:"datesLocations"`
 		} `json:"index"`
 	}
-	decoder := json.NewDecoder(resp.Body)
-	err = decoder.Decode(&relationResponse)
+	err = json.Unmarshal(body, &relationResponse)
 	if err != nil {
 		log.Fatalf("Error decoding JSON: %v", err)
 	}
-	// Extract relations from relationResponse
-	// this will sperate the dates and locations
+
 	var relationInfo []Relation
 	for _, item := range relationResponse.Index {
 		relation := Relation{DatesLocations: item.DatesLocations}
@@ -96,19 +114,19 @@ func RelationData() []Relation {
 	}
 	return relationInfo
 }
+
 func CollectData() []Data {
-	artests := ArtistData()
+	artists := ArtistData()
 	locations := LocationsData()
 	dates := DatesData()
 	relations := RelationData()
-	dataData := make([]Data, len(artests))
-	for i := 0; i < len(artests); i++ {
-		dataData[i].A = artests[i]
+
+	dataData := make([]Data, len(artists))
+	for i := 0; i < len(artists); i++ {
+		dataData[i].A = artists[i]
 		dataData[i].L = locations[i]
 		dataData[i].D = dates[i]
 		dataData[i].R = relations[i]
 	}
 	return dataData
 }
-
-

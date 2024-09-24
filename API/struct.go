@@ -36,10 +36,3 @@ type Data struct {
 	L Location
 	D Dates
 }
-
-type ISPI struct {
-	Artests   string `json:"artists"`
-	Dates     string `json:"dates"`
-	Locations string `json:"locations"`
-	Relations string `json:"relations"`
-}

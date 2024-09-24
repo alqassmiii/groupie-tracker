@@ -5,6 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="ast/Style.css">
     <title>Groupie Tracker</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+
+        header {
+            background-color: #343a40;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        h2 {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            margin: 10px;
+            padding: 15px;
+            width: 250px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #343a40;
+            color: #ffffff;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -13,147 +79,12 @@
     <main>
         <h2>Artists</h2>
         <section id="artists" class="card-container">
-           
+            {{range .}}
             <div class="card">
-                <img src="https://via.placeholder.com/250" alt="Artist Name 1">
-                <h3>Artist Name 1</h3>
-                <p>Year Active: 2020</p>
-                <p>First Album: Debut Album 1</p>
-                <p>Members: Member 1A, Member 1B</p>
+                <img src="{{.A.Image}}" alt="{{.A.Name}}">
+                <h3>{{.A.Name}}</h3>
             </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/250" alt="Artist Name 2">
-                <h3>Artist Name 2</h3>
-                <p>Year Active: 2018</p>
-                <p>First Album: Debut Album 2</p>
-                <p>Members: Member 2A, Member 2B</p>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/250" alt="Artist Name 3">
-                <h3>Artist Name 3</h3>
-                <p>Year Active: 2019</p>
-                <p>First Album: Debut Album 3</p>
-                <p>Members: Member 3A, Member 3B</p>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/250" alt="Artist Name 4">
-                <h3>Artist Name 4</h3>
-                <p>Year Active: 2021</p>
-                <p>First Album: Debut Album 4</p>
-                <p>Members: Member 4A, Member 4B</p>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/250" alt="Artist Name 5">
-                <h3>Artist Name 5</h3>
-                <p>Year Active: 2022</p>
-                <p>First Album: Debut Album 5</p>
-                <p>Members: Member 5A, Member 5B</p>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/250" alt="Artist Name 6">
-                <h3>Artist Name 6</h3>
-                <p>Year Active: 2020</p>
-                <p>First Album: Debut Album 6</p>
-                <p>Members: Member 6A, Member 6B</p>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/250" alt="Artist Name 7">
-                <h3>Artist Name 7</h3>
-                <p>Year Active: 2018</p>
-                <p>First Album: Debut Album 7</p>
-                <p>Members: Member 7A, Member 7B</p>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/250" alt="Artist Name 8">
-                <h3>Artist Name 8</h3>
-                <p>Year Active: 2019</p>
-                <p>First Album: Debut Album 8</p>
-                <p>Members: Member 8A, Member 8B</p>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/250" alt="Artist Name 9">
-                <h3>Artist Name 9</h3>
-                <p>Year Active: 2021</p>
-                <p>First Album: Debut Album 9</p>
-                <p>Members: Member 9A, Member 9B</p>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/250" alt="Artist Name 10">
-                <h3>Artist Name 10</h3>
-                <p>Year Active: 2022</p>
-                <p>First Album: Debut Album 10</p>
-                <p>Members: Member 10A, Member 10B</p>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/250" alt="Artist Name 11">
-                <h3>Artist Name 11</h3>
-                <p>Year Active: 2020</p>
-                <p>First Album: Debut Album 11</p>
-                <p>Members: Member 11A, Member 11B</p>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/250" alt="Artist Name 12">
-                <h3>Artist Name 12</h3>
-                <p>Year Active: 2018</p>
-                <p>First Album: Debut Album 12</p>
-                <p>Members: Member 12A, Member 12B</p>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/250" alt="Artist Name 13">
-                <h3>Artist Name 13</h3>
-                <p>Year Active: 2019</p>
-                <p>First Album: Debut Album 13</p>
-                <p>Members: Member 13A, Member 13B</p>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/250" alt="Artist Name 14">
-                <h3>Artist Name 14</h3>
-                <p>Year Active: 2021</p>
-                <p>First Album: Debut Album 14</p>
-                <p>Members: Member 14A, Member 14B</p>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/250" alt="Artist Name 15">
-                <h3>Artist Name 15</h3>
-                <p>Year Active: 2022</p>
-                <p>First Album: Debut Album 15</p>
-                <p>Members: Member 15A, Member 15B</p>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/250" alt="Artist Name 16">
-                <h3>Artist Name 16</h3>
-                <p>Year Active: 2020</p>
-                <p>First Album: Debut Album 16</p>
-                <p>Members: Member 16A, Member 16B</p>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/250" alt="Artist Name 17">
-                <h3>Artist Name 17</h3>
-                <p>Year Active: 2018</p>
-                <p>First Album: Debut Album 17</p>
-                <p>Members: Member 17A, Member 17B</p>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/250" alt="Artist Name 18">
-                <h3>Artist Name 18</h3>
-                <p>Year Active: 2019</p>
-                <p>First Album: Debut Album 18</p>
-                <p>Members: Member 18A, Member 18B</p>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/250" alt="Artist Name 19">
-                <h3>Artist Name 19</h3>
-                <p>Year Active: 2021</p>
-                <p>First Album: Debut Album 19</p>
-                <p>Members: Member 19A, Member 19B</p>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/250" alt="Artist Name 20">
-                <h3>Artist Name 20</h3>
-                <p>Year Active: 2022</p>
-                <p>First Album: Debut Album 20</p>
-                <p>Members: Member 20A, Member 20B</p>
-            </div>
+            {{end}}
         </section>
         
         <footer>
