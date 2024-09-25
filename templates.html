@@ -76,20 +76,24 @@
     <header>
         <h1>Groupie Tracker</h1>
     </header>
-    <main>
-        <h2>Artists</h2>
-        <section id="artists" class="card-container">
-            {{range .}}
-            <div class="card">
-                <img src="{{.A.Image}}" alt="{{.A.Name}}">
-                <h3>{{.A.Name}}</h3>
-            </div>
-            {{end}}
-        </section>
-        
-        <footer>
-            <p>&copy; 2024 Groupie Tracker</p>
-        </footer>
-    </main>
+    
+    <h2>Artists</h2>
+    
+  <section id="artists" class="card-container">
+    {{range .}}
+    
+    <div class="card">
+        <a href="/artistInfo?name={{.Name}}">
+        <img src="{{.Image}}" alt="{{.Name}}">
+        <h3>{{.Name}}</h3>
+    </a>
+    </div>
+    
+    {{end}}
+</section>
+
+    <footer>
+        <p>&copy; 2024 Groupie Tracker</p>
+    </footer>
 </body>
 </html>

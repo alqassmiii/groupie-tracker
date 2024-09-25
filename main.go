@@ -2,8 +2,7 @@ package main
 
 import (
 	"fmt"
-	"groupie-tracker/API"
-	"html/template"
+	API "groupie-tracker/API"
 	"log"
 	"net/http"
 )
@@ -14,32 +13,13 @@ func init() {
 	AA = API.CollectData()
 }
 
-func HomePage(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles("artestPage.html") // Updated path
-	if err != nil {
-		http.Error(w, "Error parsing template", http.StatusInternalServerError)
-		return
-	}
-
-	err = tmpl.Execute(w, AA) // Updated variable
-	if err != nil {
-		http.Error(w, "Error executing template", http.StatusInternalServerError)
-		return
-	}
-
-}
-
-func ArtestPage(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Welcome to the artestPage!")
-}
-
 func main() {
 	printAA()
-	http.HandleFunc("/", HomePage)
-	http.HandleFunc("/artestPage", ArtestPage)
-
-	fmt.Println("Server is running on port 8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", API.MainPage)
+	mux.HandleFunc("/artistInfo", API.ArtistPage)
+	fmt.Println("Server is listening on port 8080")
+	log.Fatal(http.ListenAndServe(":8080", mux))
 }
 
 func printAA() {
