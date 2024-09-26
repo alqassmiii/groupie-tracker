@@ -19,7 +19,7 @@ type LocationResp struct {
 }
 
 type Location struct {
-	locations []string `json:"locations"`
+	Locations []string `json:"locations"`
 }
 
 type Dates struct {

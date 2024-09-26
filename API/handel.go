@@ -1,6 +1,7 @@
 package API
 
 import (
+	"fmt"
 	"net/http"
 	"strings"
 	"text/template"
@@ -54,6 +55,7 @@ func ArtistPage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.Header().Set("Content-Type", "text/html")
+	fmt.Print(selectedArtist.L)
 	err = tmpl.Execute(w, selectedArtist)
 	if err != nil {
 		http.Error(w, "500 ffeserver error", http.StatusInternalServerError)

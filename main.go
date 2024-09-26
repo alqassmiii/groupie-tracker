@@ -14,7 +14,7 @@ func init() {
 }
 
 func main() {
-	printAA()
+
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", API.MainPage)
 	mux.HandleFunc("/artistInfo", API.ArtistPage)
