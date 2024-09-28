@@ -12,7 +12,7 @@ var AA []API.Data
 func init() {
 	AA = API.CollectData()
 }
-
+//tgyhujik
 func main() {
 	
 	mux := http.NewServeMux()
