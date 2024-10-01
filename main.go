@@ -25,12 +25,4 @@ func main() {
 
 }
 
-func printAA() {
-	for _, data := range AA {
-		fmt.Printf("Artist: %+v\n", data.A)
-		fmt.Printf("Relation: %+v\n", data.R)
-		fmt.Printf("Location: %+v\n", data.L)
-		fmt.Printf("Dates: %+v\n", data.D)
-		fmt.Println("---")
-	}
-}
+ 
