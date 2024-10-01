@@ -71,4 +71,11 @@ func ArtistPage(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-
+func renderErrorPage(w http.ResponseWriter, templateName, errorMessage string) {
+	tmpl, err := template.ParseFiles("Static/" + templateName)
+	if err != nil {
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+	tmpl.Execute(w, nil)
+}
