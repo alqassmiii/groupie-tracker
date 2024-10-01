@@ -7,11 +7,7 @@ import (
 	"net/http"
 )
 
-var AA []API.Data
 
-func init() {
-	AA = API.CollectData()
-}
 
 func main() {
 	
