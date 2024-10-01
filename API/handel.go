@@ -15,7 +15,7 @@ func MainPage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	data := ArtistData()
-	tmpl, err := template.ParseFiles("Static/HomePage.html")
+	tmpl, err := template.ParseFiles("template/HomePage.html")
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		renderErrorPage(w, "500Error.html", "500 - Internal Server Error")
@@ -56,7 +56,7 @@ func ArtistPage(w http.ResponseWriter, r *http.Request) {
 		renderErrorPage(w, "404Error.html", "404 - Not Found")
 		return
 	}
-	tmpl, err := template.ParseFiles("Static/ArtistPage.html")
+	tmpl, err := template.ParseFiles("template/ArtistPage.html")
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		renderErrorPage(w, "500Error.html", "500 - Internal Server Error")
@@ -72,7 +72,7 @@ func ArtistPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func renderErrorPage(w http.ResponseWriter, templateName, errorMessage string) {
-	tmpl, err := template.ParseFiles("Static/" + templateName)
+	tmpl, err := template.ParseFiles("template/" + templateName)
 	if err != nil {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		return
