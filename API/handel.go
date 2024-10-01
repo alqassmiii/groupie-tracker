@@ -10,63 +10,72 @@ import (
 func MainPage(w http.ResponseWriter, r *http.Request) {
 	path := strings.TrimSpace(r.URL.Path)
 	if path != "/" {
-		
-		http.ServeFile(w, r, "Static/404Error.html")
-		http.Error(w, "404 - Not Found", http.StatusNotFound)
+		w.WriteHeader(http.StatusNotFound)
+		renderErrorPage(w, "404Error.html", "404 - Not Found")
 		return
 	}
 	data := ArtistData()
 	tmpl, err := template.ParseFiles("Static/HomePage.html")
 	if err != nil {
-		http.ServeFile(w, r, "Static/500Error.html")
-		http.Error(w, "500 server error", http.StatusInternalServerError)
+		w.WriteHeader(http.StatusInternalServerError)
+		renderErrorPage(w, "500Error.html", "500 - Internal Server Error")
 		return
 	}
 	w.Header().Set("Content-Type", "text/html")
 	err = tmpl.Execute(w, data)
 	if err != nil {
-		http.ServeFile(w, r, "Static/500Error.html")
-		http.Error(w, "500 server error", http.StatusInternalServerError)
+		w.WriteHeader(http.StatusInternalServerError)
+		renderErrorPage(w, "500Error.html", "500 - Internal Server Error")
 	}
 }
+
 func ArtistPage(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/artistInfo" {
-		http.ServeFile(w, r, "Static/404Error.html")
-		http.Error(w, "404 error", http.StatusNotFound)
+		w.WriteHeader(http.StatusNotFound)
+		renderErrorPage(w, "404Error.html", "404 - Not Found")
 		return
 	}
 	artistName := r.URL.Query().Get("name")
 	if artistName == "" {
-		http.ServeFile(w, r, "Static/400Error.html")
-		http.Error(w, "400 Bad Request", http.StatusBadRequest)
+		w.WriteHeader(http.StatusBadRequest)
+		renderErrorPage(w, "400Error.html", "400 - Bad Request")
 		return
 	}
 	data := CollectData()
 	artistExists := false
 	var selectedArtist Data
 	for _, artist := range data {
-		if artist.A.Name == artistName { //artistName is the one from the url
+		if artist.A.Name == artistName {
 			selectedArtist = artist
 			artistExists = true
 			break
 		}
 	}
 	if !artistExists {
-		http.ServeFile(w, r, "Static/404Error.html")
-		http.Error(w, "404 Not Found", http.StatusNotFound)
+		w.WriteHeader(http.StatusNotFound)
+		renderErrorPage(w, "404Error.html", "404 - Not Found")
 		return
 	}
 	tmpl, err := template.ParseFiles("Static/ArtistPage.html")
 	if err != nil {
-		http.ServeFile(w, r, "Static/500Error.html")
-		http.Error(w, "500 server error", http.StatusInternalServerError)
+		w.WriteHeader(http.StatusInternalServerError)
+		renderErrorPage(w, "500Error.html", "500 - Internal Server Error")
 		return
 	}
 	w.Header().Set("Content-Type", "text/html")
 	fmt.Print(selectedArtist.L)
 	err = tmpl.Execute(w, selectedArtist)
 	if err != nil {
-		http.ServeFile(w, r, "Static/500BError.html")
-		http.Error(w, "500 server error", http.StatusInternalServerError)
+		w.WriteHeader(http.StatusInternalServerError)
+		renderErrorPage(w, "500Error.html", "500 - Internal Server Error")
 	}
+}
+
+func renderErrorPage(w http.ResponseWriter, templateName, errorMessage string) {
+	tmpl, err := template.ParseFiles("Static/" + templateName)
+	if err != nil {
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+	tmpl.Execute(w, nil)
 }
