@@ -1,42 +1,52 @@
 package API
+
 import (
 	"encoding/json"
 	"io"
 	"log"
 	"net/http"
 )
+
 // Artist, Location, Dates, Relation, Data structs need to be defined here
+
 func ArtistData() []Artist {
 	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
 	if err != nil {
-		log.Fatalf("Error after request: %v", err)
+		log.Println("Error API , Check your internet connection")
+		return nil
 	}
 	defer resp.Body.Close()
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatalf("Error reading response body: %v", err)
+		log.Println("Error API , Check your internet connection")
+		return nil
 	}
 	var artistInfo []Artist
 	err = json.Unmarshal(body, &artistInfo)
 	if err != nil {
-		log.Fatalf("Error decoding JSON: %v", err)
+		log.Println("Error API , Check your internet connection")
+		return nil
 	}
 	return artistInfo
 }
+
 func LocationsData() []Location {
 	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/locations")
 	if err != nil {
-		log.Fatalf("Error after request: %v", err)
+		log.Println("Error API , Check your internet connection")
+		return nil
 	}
 	defer resp.Body.Close()
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatalf("Error reading response body: %v", err)
+		log.Println("Error API , Check your internet connection")
+		return nil
 	}
 	var locationsResp LocationResp
 	err = json.Unmarshal(body, &locationsResp)
 	if err != nil {
-		log.Fatalf("Error decoding JSON: %v", err)
+		log.Println("Error API , Check your internet connection")
+		return nil
 	}
 	var locations []Location
 	for _, item := range locationsResp.Index {
@@ -45,15 +55,18 @@ func LocationsData() []Location {
 	}
 	return locations
 }
+
 func DatesData() []Dates {
 	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/dates")
 	if err != nil {
-		log.Fatalf("Error after request: %v", err)
+		log.Println("Error API , Check your internet connection")
+		return nil
 	}
 	defer resp.Body.Close()
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatalf("Error reading response body: %v", err)
+		log.Println("Error API , Check your internet connection")
+		return nil
 	}
 	var datesResponse struct {
 		Index []struct {
@@ -62,7 +75,8 @@ func DatesData() []Dates {
 	}
 	err = json.Unmarshal(body, &datesResponse)
 	if err != nil {
-		log.Fatalf("Error decoding JSON: %v", err)
+		log.Println("Error API , Check your internet connection")
+		return nil
 	}
 	var datesInfo []Dates
 	for _, item := range datesResponse.Index {
@@ -71,15 +85,18 @@ func DatesData() []Dates {
 	}
 	return datesInfo
 }
+
 func RelationData() []Relation {
 	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/relation")
 	if err != nil {
-		log.Fatalf("Error after request: %v", err)
+		log.Println("Error API , Check your internet connection")
+		return nil
 	}
 	defer resp.Body.Close()
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatalf("Error reading response body: %v", err)
+		log.Println("Error API , Check your internet connection")
+		return nil
 	}
 	var relationResponse struct {
 		Index []struct {
@@ -88,7 +105,9 @@ func RelationData() []Relation {
 	}
 	err = json.Unmarshal(body, &relationResponse)
 	if err != nil {
-		log.Fatalf("Error decoding JSON: %v", err)
+		log.Println("Error API , Check your internet connection")
+
+		return nil
 	}
 	var relationInfo []Relation
 	for _, item := range relationResponse.Index {
@@ -97,6 +116,7 @@ func RelationData() []Relation {
 	}
 	return relationInfo
 }
+
 func CollectData() []Data {
 	artists := ArtistData()
 	locations := LocationsData()
