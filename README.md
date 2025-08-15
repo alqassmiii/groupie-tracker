@@ -39,3 +39,11 @@ You can add screenshots by placing images in a `screenshots/` folder and referen
 
 ---
 
+
+## 👨‍💻 Author
+
+**Qassim Aljaafar**  
+[LinkedIn](https://www.linkedin.com/in/qassim-aljaffer)  
+📧 qassimhassan9@gmail.com  
+📍 Manama, Bahrain
+
