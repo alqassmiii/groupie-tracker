@@ -27,16 +27,6 @@ Groupie Tracker is a web application written in Go that displays information abo
 ```
 
 
-
-## Screenshots
-You can add screenshots by placing images in a `screenshots/` folder and referencing them here:
-
-![Home Page](/Users/al_qassmiii/Desktop/Screenshots/Screenshot 2025-08-16 at 1.06.02 AM.png)
-![Artist Page](/Users/al_qassmiii/Desktop/Screenshots/Screenshot 2025-08-16 at 1.06.38 AM.png)
-
-*Screenshots not included by default. Please add your own.*
-
-
 ---
 
 
