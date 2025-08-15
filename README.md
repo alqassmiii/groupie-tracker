@@ -26,6 +26,25 @@ Groupie Tracker is a web application written in Go that displays information abo
 │   └── HomePage.html     # Home page template
 ```
 
+## How It Works
+- The server runs on port 8080.
+- Static files (CSS) are served from `/Static/`.
+- `/` displays the home page with all artists.
+- `/artistInfo?name=ARTIST_NAME` displays details for a selected artist.
+- Error pages are rendered for invalid requests or server errors.
+
+## Getting Started
+1. **Install Go (>= 1.22)**
+2. Clone this repository:
+   ```sh
+   git clone <repo-url>
+   cd groupie-tracker
+   ```
+3. Run the server:
+   ```sh
+   go run main.go
+   ```
+4. Open [http://localhost:8080](http://localhost:8080) in your browser.
 
 ---
 
